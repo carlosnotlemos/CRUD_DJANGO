@@ -1,0 +1,25 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+  <div class="container mt-5">
+    <form action="{% if aluno %}{% url 'aluno_actions' aluno.id %}{% else %}{% url 'alunos_list_create' %}{% endif %}" method="POST"> {% csrf_token %}
+    {% if aluno %}
+      <input type="hidden" name="_method" value="PATCH">
+      <input type="hidden" name="aluno_id" value="{{aluno.id}}">
+    {% endif%}
+    
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="text" name="aluno_email" value="{{aluno.email|default:''}}" class="form-control" placeholder="name@example.com">
+      </div>
+    
+      <label for="name" class="form-label">Nome</label>
+      <input type="text" name="aluno_nome" value="{{aluno.nome|default:''}}" class="form-control">
+
+      <button type="submit" class="btn btn-success">
+        {% if aluno %}Atualizar Dados{% else %}Cadastrar Aluno{% endif %}
+      </button>
+
+      <a href="{% url 'alunos_list_create' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+  </div>
+{% endblock %}
