@@ -9,7 +9,7 @@ def home(_):
 def alunos_list_create(request):
   if request.method == "GET":
     alunos = Aluno.objects.all()
-    return render(request, "index.html", { "alunos": alunos })
+    return render(request, "alunos/index.html", { "alunos": alunos })
   
   elif request.method == "POST":
     nome = request.POST.get("aluno_nome")
@@ -20,11 +20,11 @@ def alunos_list_create(request):
     return redirect("alunos_list_create")
 
 def aluno_new(request):
-  return render(request, "form.html")
+  return render(request, "alunos/form.html")
 
 def aluno_edit(request, id):
   aluno = get_object_or_404(Aluno, id=id)
-  return render(request, "form.html", {"aluno": aluno})
+  return render(request, "alunos/form.html", {"aluno": aluno})
 
 def aluno_actions(request, id):
   aluno = get_object_or_404(Aluno, id=id)
@@ -58,7 +58,7 @@ def aluno_actions(request, id):
     return redirect("alunos_list_create")
   
   elif method == "GET":
-    return render(request, 'show.html', {"aluno": aluno})
+    return render(request, 'alunos/show.html', {"aluno": aluno})
   
   else:
     return HttpResponseNotAllowed(["GET", "PATCH", "PUT", "DELETE"])
